@@ -1,4 +1,4 @@
-# Repositório para disciplina de banco de dados do curso de redes de computadores
+# Projeto para disciplina de banco de dados do curso de redes de computadores
 
 ### Primeiros passos
 
