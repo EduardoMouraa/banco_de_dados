@@ -44,7 +44,7 @@ CREATE SEQUENCE setores_id_seq;
 CREATE TABLE setores(
     id BIGINT NOT NULL default nextval('setores_id_seq'),
     nome VARCHAR(255) NOT NULL,
-    campus BIGINT NOT NULL,
+    campi_id BIGINT NOT NULL,
     type CHAR(4) NOT NULL check(type in ('siap','suap'))
 );
 
@@ -92,7 +92,7 @@ CREATE TABLE servidores(
     url_foto_74x100 VARCHAR(255) NOT NULL,
     curriculo VARCHAR(255) NOT NULL,
     telefones_intituicionais TEXT NOT NULL,
-    campus BIGINT NOT NULL,
+    campi_id BIGINT NOT NULL,
     funcao TEXT NOT NULL,
     disciplina_ingresso_id BIGINT NULL,
     categoria_id BIGINT NOT NULL
@@ -132,8 +132,8 @@ ALTER TABLE
 ALTER TABLE
     cargos ADD CONSTRAINT cargos_jornada_trabalho_id_foreign FOREIGN KEY(jornada_trabalho_id) REFERENCES jornada_trabalho(id);
 ALTER TABLE
-    servidores ADD CONSTRAINT servidores_campus_foreign FOREIGN KEY(campus) REFERENCES campi(id);
+    servidores ADD CONSTRAINT servidores_campi_id_foreign FOREIGN KEY(campi_id) REFERENCES campi(id);
 ALTER TABLE
     cargos_docente ADD CONSTRAINT cargos_docente_docente_id_foreign FOREIGN KEY(docente_id) REFERENCES servidores(id);
 ALTER TABLE
-    setores ADD CONSTRAINT setores_campus_foreign FOREIGN KEY(campus) REFERENCES campi(id);
+    setores ADD CONSTRAINT setores_campi_id_foreign FOREIGN KEY(campi_id) REFERENCES campi(id);

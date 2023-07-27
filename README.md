@@ -18,6 +18,11 @@ Windows:
 $ .venv/Scripts/Activate
 ```
 
+Instalação das dependências
+```bash
+$ pip install -r requirements.txt
+```
+
 Agora crie um arquivo chamado **.env** e adicione os seguintes valores ao arquivo substituindo o que estiver entre **<>**:
 ```
 SERVER=<IP_DO_SERVIDOR_DO_BANCO>

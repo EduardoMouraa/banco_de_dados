@@ -18,3 +18,5 @@ importar_dados(
     cabecalho = cabecalho,
     dados = dados
 )
+
+print(f"Dados importados com sucesso.")

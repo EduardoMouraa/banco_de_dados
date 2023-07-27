@@ -99,7 +99,7 @@ class Escola:
 def importar_dados(
     cabecalho: list,
     dados: list
-):
+) -> None:
     conectado, conexao = conecta_db()
 
     if not conectado:
@@ -114,9 +114,9 @@ def importar_dados(
     for dado in dados:
         categoria, cargos, setor_siape,\
         disciplina_ingresso, setor_suap,\
-        nome, funcao, jornada_trabalho,\
-        telefones_instituicionais,\
-        matricula, curriculo_lates,\
+        nome_servidor, funcao, jornada_trabalho,\
+        telefones_institucionais,\
+        matricula, curriculo,\
         campus, url_foto_75x100 = dado
         
         campi_id = escola.check_or_create_data_in_table(
@@ -124,22 +124,18 @@ def importar_dados(
             dado = campus,
             tabela = "campi",
         )
-        escola.check_or_create_data_in_table(
+        categoria_id = escola.check_or_create_data_in_table(
             campo = "nome",
             dado = categoria,
             tabela = "categorias",
         )
-        escola.check_or_create_data_in_table(
-            campo = "name",
+        jornada_trabalho_id = escola.check_or_create_data_in_table(
+            campo = "nome",
             dado = jornada_trabalho,
             tabela = "jornada_trabalho",
         )
-        escola.check_or_create_data_in_table(
-            campo = "name",
-            dado = jornada_trabalho,
-            tabela = "jornada_trabalho"
-        )
-        escola.check_or_create_data_in_table(
+        
+        setor_siape_id = escola.check_or_create_data_in_table(
             campo = "nome",
             dado = setor_siape,
             tabela = "setores",
@@ -150,8 +146,48 @@ def importar_dados(
                 "type": "siap"
             }
         )
+        setor_suap_id = escola.check_or_create_data_in_table(
+            campo = "nome",
+            dado = setor_suap,
+            tabela = "setores",
+            kwargs = {
+                "nome": setor_suap.split("/")[0],
+                "campi_id": campi_id,
+                "type": "suap"
+            }
+        )
+        disciplina_ingresso_id = escola.check_or_create_data_in_table(
+            campo = "nome",
+            dado = disciplina_ingresso,
+            tabela = "disciplinas"
+        )
+        escola.check_or_create_data_in_table(
+            campo = "nome",
+            dado = cargos,
+            tabela = "cargos",
+            kwargs = {
+                "nome": cargos,
+                "jornada_trabalho_id": jornada_trabalho_id,
+                "type": "suap"
+            }
+        )
+        escola.check_or_create_data_in_table(
+            campo = "nome",
+            dado = nome_servidor,
+            tabela = "servidores",
+            kwargs = {
+                "nome": nome_servidor,
+                "matricula": matricula,
+                "url_foto_75x100": url_foto_75x100,
+                "curriculo": curriculo,
+                "telefones_institucionais": telefones_institucionais,
+                "campi_id": campi_id,
+                "funcao": funcao,
+                "disciplina_ingresso_id": disciplina_ingresso_id,
+                "categoria_id": categoria_id,
+            }
+        )
         
-        print(dado)
 
 # ------------------------------------------------------------
 def ler_arquivo(file_path: str) -> tuple:
