@@ -1,4 +1,4 @@
-# Repositório para discilpina de banco_de_dados do curso de redes de computadores
+# Repositório para disciplina de banco_de_dados do curso de redes de computadores
 
 ### Primeiros passos
 
