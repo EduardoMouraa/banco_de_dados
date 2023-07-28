@@ -1,5 +1,8 @@
 # Repositório para disciplina de banco de dados do curso de redes de computadores
 
+## Modelo lógico
+![Cute Cat](modelo_logico/modelo_logico.png)
+
 ### Primeiros passos
 
 #### Criação de ambiente virtual
@@ -8,15 +11,15 @@ $ python -m venv .venv
 ```
 Para acessar o ambiente virtual execute:
 
-Linux:
-```bash
-$ source .venv/bin/activate
-```
+* Linux:
+    ```bash
+    $ source .venv/bin/activate
+    ```
 
-Windows:
-```bash
-$ .venv/Scripts/Activate
-```
+* Windows:
+    ```bash
+    $ .venv/Scripts/Activate
+    ```
 
 Instalação das dependências
 ```bash
@@ -29,14 +32,16 @@ SERVER=<IP_DO_SERVIDOR_DO_BANCO>
 DATABASE=<NOME_DO_BANCO_DE_DADOS>
 USERDB=<USUARIO_DO_BANCO_DE_DADOS>
 PASSWD=<SENHA_DO_BANCO_DE_DADOS>
+PORT=<PORTA_DO_BANCO_DE_DADOS>
 ```
 
-## Acessando a pasta de códigos:
+## Acessando a pasta de código:
 ```bash
-$ cd codigo/importacao
+$ cd codigo
 ```
 
-## Para rodar a importação de dados execute:
+## Para rodar a importação de dados execute e siga os passos:
 ```bash
-$ python importar_dados.py
+$ python main.py
 ```
+
