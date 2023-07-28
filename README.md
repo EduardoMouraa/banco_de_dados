@@ -1,9 +1,11 @@
 # Projeto para disciplina de banco de dados do curso de redes de computadores
 
 ## Modelo lógico
-![Cute Cat](modelo_logico/modelo_logico.png)
+![Modelo lógico](modelo_logico/modelo_logico.png)
 
 ### Primeiros passos
+
+#### OBS: Para executar a aplicação será necessário ter um servidor (banco de dados) postgresql previamente configurado e estruturado seguindo o script para [criar estrutura do DB](modelo_logico/criar_estrutura_db.sql)
 
 #### Criação de ambiente virtual
 ```bash
