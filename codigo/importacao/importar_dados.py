@@ -14,6 +14,7 @@ if not lido:
     print("Falha na leitura do arquivo.")
     sys.exit()
 
+print(f"Importando dados...")
 importar_dados(
     cabecalho = cabecalho,
     dados = dados

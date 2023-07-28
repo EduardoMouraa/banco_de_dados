@@ -44,14 +44,14 @@ class Escola:
         )
         return dados
 
-    def check_or_create_data_in_table(
+    def check_data(
         self,
         campo: str,
         dado: str,
         tabela: str,
         kwargs: dict = {}
-    ) -> bool:
-        
+    ):
+        sql = ""
         if not kwargs:
             sql = f"""\
             SELECT * FROM {tabela}
@@ -68,6 +68,22 @@ class Escola:
             sql = sql[:-4]
         
         dados = self._execute(sql=sql)
+        return dados
+
+    def check_or_create_data_in_table(
+        self,
+        campo: str,
+        dado: str,
+        tabela: str,
+        kwargs: dict = {}
+    ) -> bool:
+        
+        dados = self.check_data(
+            campo = campo,
+            dado = dado,
+            tabela = tabela,
+            kwargs = kwargs
+        )
         
         if not dados:
             dados = self._create_data_in_table(
@@ -75,6 +91,13 @@ class Escola:
                 dados=dado,
                 campos=campo,
                 kwargs=kwargs
+            )
+
+            dados = self.check_data(
+                campo = campo,
+                dado = dado,
+                tabela = tabela,
+                kwargs = kwargs
             )
         
         if dados:
@@ -117,7 +140,7 @@ def importar_dados(
         nome_servidor, funcao, jornada_trabalho,\
         telefones_institucionais,\
         matricula, curriculo,\
-        campus, url_foto_75x100 = dado
+        campus, url_foto_74x100 = dado
         
         campi_id = escola.check_or_create_data_in_table(
             campo = "sigla",
@@ -135,15 +158,14 @@ def importar_dados(
             tabela = "jornada_trabalho",
         )
         
-        setor_siape_id = escola.check_or_create_data_in_table(
+        setor_siap_id = escola.check_or_create_data_in_table(
             campo = "nome",
             dado = setor_siape,
             tabela = "setores",
             kwargs = {
                 "nome": setor_siape.split("/")[0],
-                # "campi_id": campi_id,
-                "campus": campi_id,
-                "type": "siap"
+                "campi_id": campi_id,
+                "tipo": "siap"
             }
         )
         setor_suap_id = escola.check_or_create_data_in_table(
@@ -153,7 +175,7 @@ def importar_dados(
             kwargs = {
                 "nome": setor_suap.split("/")[0],
                 "campi_id": campi_id,
-                "type": "suap"
+                "tipo": "suap"
             }
         )
         disciplina_ingresso_id = escola.check_or_create_data_in_table(
@@ -167,8 +189,7 @@ def importar_dados(
             tabela = "cargos",
             kwargs = {
                 "nome": cargos,
-                "jornada_trabalho_id": jornada_trabalho_id,
-                "type": "suap"
+                "jornada_trabalho_id": jornada_trabalho_id
             }
         )
         escola.check_or_create_data_in_table(
@@ -178,13 +199,15 @@ def importar_dados(
             kwargs = {
                 "nome": nome_servidor,
                 "matricula": matricula,
-                "url_foto_75x100": url_foto_75x100,
+                "url_foto_74x100": url_foto_74x100,
                 "curriculo": curriculo,
                 "telefones_institucionais": telefones_institucionais,
                 "campi_id": campi_id,
                 "funcao": funcao,
                 "disciplina_ingresso_id": disciplina_ingresso_id,
                 "categoria_id": categoria_id,
+                "setor_siap_id": setor_siap_id,
+                "setor_suap_id": setor_suap_id,
             }
         )
         
@@ -223,6 +246,7 @@ def conecta_db():
     database = decouple.config("DATABASE", default="", cast=str)
     user = decouple.config("USERDB", default="", cast=str)
     passwd = decouple.config("PASSWD", default="", cast=str)
+    port = decouple.config("PORT", default="", cast=str)
 
     if not server:
         print("Server não encontrado.")
@@ -243,7 +267,7 @@ def conecta_db():
     conectado = False
     conexao   = None
     try:
-        conexao = psycopg2.connect(f'dbname={database} user={user} host={server} password={passwd}')
+        conexao = psycopg2.connect(f'dbname={database} user={user} host={server} password={passwd} port={port}')
     except:
         conexao = f'ERRO: {sys.exc_info()[0]}'
     else:
