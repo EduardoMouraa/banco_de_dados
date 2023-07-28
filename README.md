@@ -40,8 +40,13 @@ PORT=<PORTA_DO_BANCO_DE_DADOS>
 $ cd codigo
 ```
 
-## Para rodar a importação de dados execute e siga os passos:
+## Para rodar a aplicação execute o comando a seguir e siga as opções
 ```bash
 $ python main.py
 ```
 
+Opções disponíveis para utilização:
+1. Importação de dados.
+2. Relação de tipos de servidores por campi.
+3. Relação de docentes por disciplina de ingresso.
+4. Relação de disciplina de ingresso por campi e sua quantidade.
